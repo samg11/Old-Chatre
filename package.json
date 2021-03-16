@@ -1,7 +1,7 @@
 {
   "name": "chatre",
   "version": "1.0.0",
-  "description": "",
+  "description": "A chat app",
   "main": "dist/index.js",
   "scripts": {
     "start": "npm run build && npm run server",
@@ -10,7 +10,7 @@
     "dev": "nodemon -q"
   },
   "keywords": [],
-  "author": "",
+  "author": "Sam Girshovich",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^14.14.35",
