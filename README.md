@@ -16,4 +16,4 @@ npm run dev
 
 ## License
 
-MIT © [Sam Girshovich](github.com/samg11)
+MIT © [Sam Girshovich](https://github.com/samg11)
