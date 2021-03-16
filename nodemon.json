@@ -1,0 +1,6 @@
+{
+  "ignore": ["**/*.test.ts", "**/*.spec.ts", ".git", "node_modules"],
+  "watch": ["src"],
+  "exec": "echo COMPILING TYPESCRIPT && npx tsc && echo STARTING SERVER && node .",
+  "ext": "ts"
+}
