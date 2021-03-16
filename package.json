@@ -10,8 +10,9 @@
     "dev": "nodemon -q"
   },
   "keywords": [],
-  "author": "Sam Girshovich",
+  "author": "Sam Girshovich <sam.girshovich@gmail.com>",
   "license": "MIT",
+  "repository": "samg11/chatre",
   "devDependencies": {
     "@types/node": "^14.14.35",
     "eslint": "^7.22.0",
