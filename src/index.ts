@@ -16,7 +16,7 @@ app.use('/bootstrap', express.static(path.join('node_modules', 'bootstrap', 'dis
 app.use('/jquery', express.static(path.join('node_modules', 'jquery', 'dist')));
 app.use('/public', express.static('public'));
 
-// EXPRESS MIDDLEWARE;
+// EXPRESS MIDDLEWARE
 app.use('/groups', groups);
 
 // set ejs as template engine
