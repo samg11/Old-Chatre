@@ -12,8 +12,6 @@ const app = express();
 app.use(morgan(':method :status :response-time ms :url'));
 
 // static routes
-app.use('/bootstrap', express.static(path.join('node_modules', 'bootstrap', 'dist')));
-app.use('/jquery', express.static(path.join('node_modules', 'jquery', 'dist')));
 app.use('/public', express.static('public'));
 
 // EXPRESS MIDDLEWARE

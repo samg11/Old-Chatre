@@ -1,8 +1,8 @@
-console.log(firebase);
 const signInBtn = $('.signInBtn');
 const signOutBtn = $('.signOutBtn');
+
 const whenSignedIn = $('.whenSignedIn');
-const whenSignedOut =$('.whenSignedOut');
+const whenSignedOut = $('.whenSignedOut');
 
 const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
