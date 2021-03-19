@@ -1,9 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">Chatre</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span class="whenSignedOut navbar-toggler-icon"></span>
+            <img width="50" style="margin-right:10px;border-radius:50%" class="whenSignedIn profilePic" alt="Profile Pic">
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
@@ -18,8 +19,10 @@
                         style="cursor: pointer"
                     />
                 </li>
-                <li class="nav-item whenSignedIn">
-                    <button class="nav-link" class="signOutBtn">Logout</button>
+                <li class="nav-item">
+                    <button type="button" class="signOutBtn whenSignedIn btn btn-danger">
+                        Logout
+                    </button>
                 </li>
             </ul>
         </div>

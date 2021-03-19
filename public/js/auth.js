@@ -15,6 +15,7 @@ auth.onAuthStateChanged(user => {
         // signed in
         whenSignedIn.show();
         whenSignedOut.hide();
+        $('img.profilePic').attr('src', user.photoURL)
     } else {
         // not signed in
         whenSignedIn.hide();
