@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Groups</title>
+    <%- include('../partials/head'); -%>
+    <script defer src="/public/js/groups.js"></script>
+  </head>
+  <body>
+    <%- include('../partials/nav'); -%>
+    <h1>Groups</h1>
+
+    
+
+    <!-- Button trigger modal -->
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#createGroupModal"
+    >
+      Create Group
+    </button>
+
+    <br><br><br>
+    <h2>Admin Groups: </h2>
+    <div id="admin-group-list" class="list-group"></div>
+
+    <br><br><br>
+    <h2>Member Groups: </h2>
+    <div id="member-group-list" class="list-group"></div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="createGroupModal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Create Group</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <form id="create-group-form" action="#">
+            <div class="modal-body">
+              <div class="input-group input-group-lg">
+                <span class="input-group-text" id="inputGroup-sizing-lg"
+                  >Group Name</span
+                >
+                <input
+                  type="text"
+                  id="group-name"
+                  class="form-control"
+                  aria-label="Sizing example input"
+                  aria-describedby="inputGroup-sizing-lg"
+                />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <input
+                type="submit"
+                class="btn btn-primary"
+                value="Create Group"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

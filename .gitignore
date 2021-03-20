@@ -1,2 +1,4 @@
 node_modules
 dist
+serviceAccountKey.json
+service-account-file.json
