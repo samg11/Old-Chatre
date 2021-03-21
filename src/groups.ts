@@ -14,7 +14,6 @@ groups.post('/getGroups', async (req, res) => {
     const idToken = req.headers.authorization.split('Bearer ')[1];
     try {
       const decodedToken = await auth.verifyIdToken(idToken);
-
       const [adminGroups, memberGroups] = await Promise.all([
         db.collection('groups').where('admin', '==', decodedToken.uid).get(),
         db.collection('groups').where(decodedToken.uid, 'array-contains', 'members').get()

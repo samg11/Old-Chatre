@@ -4,7 +4,6 @@ export interface Group {
   icon: string | null;
   admin: string;
   name: string;
-  messages: any[];
   members: string[];
   date_created: number;
 }

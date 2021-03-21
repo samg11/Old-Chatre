@@ -20,10 +20,14 @@ $('#chat-bar').on('submit', async (e) => {
 auth.onAuthStateChanged(user => {
     if (user) {
         console.log('logged in')
-        db.collection("groups").doc(groupName).collection('messages')
-        .onSnapshot((col) => {
+        db.collection("groups").doc(groupName).collection('messages').orderBy('date_created')
+        .onSnapshot(col => {
+            $('#messages').html('');
             col.forEach(doc => {
-                console.log(doc.data())
+                const msg = doc.data();
+                $('#messages').append(`<li>
+                    ${msg.posted_by}: ${msg.text}
+                </li>`)
             });
         });
     }

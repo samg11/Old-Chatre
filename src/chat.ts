@@ -21,12 +21,11 @@ chat.post('/:name/sendmsg', async (req, res) => {
       auth.verifyIdToken(idToken),
       db.collection('groups').doc(req.params.name).get()
     ]);
-
     if (decodedToken.uid === group.data()?.admin || decodedToken.uid in group.data()?.members) {
       db.collection('groups').doc(req.params.name).collection('messages').add({
         date_created: Math.floor((new Date()).getTime() / 1000),
         text: req.body.text,
-        posted_by: decodedToken.uid,
+        posted_by: decodedToken.name,
         image: null
       });
     } else {
