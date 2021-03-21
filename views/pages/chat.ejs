@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chatre</title>
+    <%- include('../partials/head'); -%>
+    <link rel="stylesheet" href="/public/css/chat.css" />
+  </head>
+  <body>
+    <%- include('../partials/nav'); -%>
+    <main>
+      <div>
+        <h1><%= groupName %></h1>
+        <ul id="messages"></ul>
+      </div>
+    </main>
+
+    <form id="chat-bar">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Message Content"
+          aria-label="Message Text"
+          aria-describedby="sendMSG_BTN"
+          id="msgText"
+        />
+        <input
+          class="btn btn-outline-secondary"
+          type="submit"
+          value="Send Message"
+          id="sendMSG_BTN"
+        />
+      </div>
+    </form>
+    <script>
+        const groupName = "<%= groupName %>";
+    </script>
+    <script defer src="/public/js/chat.js"></script>
+  </body>
+</html>

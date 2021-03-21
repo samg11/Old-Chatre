@@ -1,0 +1,19 @@
+:root {
+  --chat-bar-height: 2.5rem;
+}
+
+main {
+  position: relative;
+  min-height: 100vh;
+}
+
+main > div{
+  padding-bottom: var(--chat-bar-height);
+}
+
+#chat-bar {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: var(--chat-bar-height);
+}

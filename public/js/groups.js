@@ -7,7 +7,7 @@
 function renderGroups(groups) {
     Promise.resolve().then(() => {groups.adminGroups.forEach((group) => {
         $('#admin-group-list').append(`
-            <a href="#" class="list-group-item list-group-item-action">
+            <a href="/chat/${group}" class="list-group-item list-group-item-action">
                 ${group}
             </a>
         `);
@@ -15,7 +15,7 @@ function renderGroups(groups) {
 
     Promise.resolve().then(() => {groups.memberGroups.forEach((group) => {
         $('#member-group-list').append(`
-            <a href="#" class="list-group-item list-group-item-action">
+            <a href="/chat/${group}" class="list-group-item list-group-item-action">
                 ${group}
             </a>
         `);

@@ -2,7 +2,7 @@ import express from "express";
 
 const groups = express();
 
-import { fire, db, auth } from './fire';
+import { db, auth } from './fire';
 
 // List Groups
 groups.get("/", (req, res) => {
@@ -19,8 +19,6 @@ groups.post('/getGroups', async (req, res) => {
         db.collection('groups').where('admin', '==', decodedToken.uid).get(),
         db.collection('groups').where(decodedToken.uid, 'array-contains', 'members').get()
       ]);
-
-      console.log('hello');
 
       const adminGroupNames: any[] = [];
       const memberGroupNames: any[] = [];
