@@ -28,6 +28,7 @@ chat.post('/:name/sendmsg', async (req, res) => {
         posted_by: decodedToken.name,
         image: null
       });
+      res.sendStatus(201);
     } else {
       res.sendStatus(401);
     }

@@ -12,7 +12,7 @@ main > div{
 }
 
 #chat-bar {
-  position: absolute;
+  position: sticky;
   bottom: 0;
   width: 100%;
   height: var(--chat-bar-height);
