@@ -2,3 +2,4 @@ node_modules
 dist
 serviceAccountKey.json
 service-account-file.json
+package-lock.json
