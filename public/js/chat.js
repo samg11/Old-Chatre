@@ -28,8 +28,22 @@ auth.onAuthStateChanged(user => {
                 const msg = doc.data();
                 $('#messages')
                     .append(
-                        $("<li></li>")
-                            .text(`${msg.posted_by}: ${msg.text}`)
+                        $("<div></div>")
+                            .addClass('message')
+                            
+                            .append(
+                                $("<span></span>")
+                                    .addClass('user')
+                                    .text(msg.posted_by)
+                            )
+                            
+                            .append(': ')
+
+                            .append(
+                                $("<span></span>")
+                                    .addClass('text')
+                                    .text(msg.text)
+                            )
                     );
             });
         });

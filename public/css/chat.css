@@ -11,6 +11,16 @@ main > div{
   padding-bottom: var(--chat-bar-height);
 }
 
+#messages {
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  display: inline-flex;
+  width: 100%;
+}
+
 #chat-bar {
   position: sticky;
   bottom: 0;
