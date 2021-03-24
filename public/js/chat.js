@@ -45,10 +45,8 @@ auth.onAuthStateChanged(user => {
                                     .text(msg.text)
                             )
                     );
-                console.log([$("#messages").scrollTop(0) + $("#messages").height(), $("#messages").height() - 100])
-                
-
             });
+            $('#messages').scrollTop($('#messages')[0].scrollHeight);
         });
     }
 })
