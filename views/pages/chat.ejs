@@ -8,12 +8,54 @@
     <%- include('../partials/head'); -%>
     <link rel="stylesheet" href="/public/css/chat.css" />
   </head>
+
   <body>
     <%- include('../partials/nav'); -%>
     <main>
+     
       <div>
         <h1><%= groupName %></h1>
-        <div id="messages"></div>
+
+        <% if (rank==='admin' ) /* ADMIN */ { %>
+        <p>
+          <button
+            class="btn btn-primary"
+            type="button"
+            id="addMemberCollapseButton"
+            data-toggle="collapse"
+            data-target="#addMemberCollapse"
+            aria-expanded="false"
+            aria-controls="addMemberCollapse"
+          >
+            Add Member
+          </button>
+        </p>
+        <div class="collapse" id="addMemberCollapse">
+          <div class="card card-body">
+
+            <form class="form-inline" id="addMemberForm">
+              <div class="form-group mx-sm-3 mb-2">
+                <label for="userEmail" class="sr-only">Email</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="userEmail"
+                  placeholder="john.doe@example.com"
+                />
+                <input type="submit" class="btn btn-primary" value="Add Member">
+              </div>
+            </form>
+          </div>
+          </div>
+        </div>
+
+        <% } /* MEMBER */ else { %>
+        <p>Member</p>
+        <% } %>
+
+        <div id="messages">
+          <!-- messages go here -->
+        </div>
       </div>
     </main>
 
@@ -35,8 +77,10 @@
         />
       </div>
     </form>
+    
     <script>
-        const groupName = "<%= groupName %>";
+      const groupName = "<%= groupName %>";
+      const rank = "<%= rank %>";
     </script>
     <script defer src="/public/js/chat.js"></script>
   </body>

@@ -51,3 +51,8 @@ auth.onAuthStateChanged(user => {
     }
 })
 
+
+// ADD MEMBER
+if (rank === 'admin') {
+    $("#addMemberCollapseButton").on('click', () => $("#addMemberCollapse").collapse('toggle'));
+}
