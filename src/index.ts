@@ -13,7 +13,7 @@ const app = express();
 app.use(express.json())
 
 // HELMET SECURITY
-app.use(helmet({ contentSecurityPolicy: (process.env.NODE_ENV === 'production') ? undefined : false }));
+app.use(helmet({ contentSecurityPolicy: false }));
 
 // LOGGER
 app.use(morgan(`:method :status :response-time ms :url`));
