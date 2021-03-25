@@ -1,5 +1,6 @@
 import express from "express";
 import morgan from "morgan";
+import helmet from "helmet";
 
 import groups from "./groups";
 import chat from "./chat";
@@ -10,6 +11,9 @@ const app = express();
 
 // BODY PARSER
 app.use(express.json())
+
+// HELMET SECURITY
+app.use(helmet({ contentSecurityPolicy: (process.env.NODE_ENV === 'production') ? undefined : false }));
 
 // LOGGER
 app.use(morgan(`:method :status :response-time ms :url`));
