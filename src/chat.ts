@@ -5,12 +5,13 @@ const chat = express();
 import { db, auth } from './fire';
 import { Group } from './commonTypes';
 
-chat.get("/:name", async (req, res) => {
+chat.get("/:name/:rank", async (req, res) => {
   // @ts-ignore
   const group: Group = (await db.collection('groups').doc(req.params.name).get()).data();
   console.log(group);
   res.render('pages/chat', {
-    groupName: group.name
+    groupName: group.name,
+    rank: req.params.rank === 'a' ? 'admin': 'member'
   });
 });
 
