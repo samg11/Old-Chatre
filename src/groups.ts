@@ -16,7 +16,7 @@ groups.post('/getGroups', async (req, res) => {
       const decodedToken = await auth.verifyIdToken(idToken);
       const [adminGroups, memberGroups] = await Promise.all([
         db.collection('groups').where('admin', '==', decodedToken.uid).get(),
-        db.collection('groups').where(decodedToken.uid, 'array-contains', 'members').get()
+        db.collection('groups').where('members', 'array-contains', decodedToken.uid).get()
       ]);
 
       const adminGroupNames: any[] = [];
@@ -25,6 +25,7 @@ groups.post('/getGroups', async (req, res) => {
       await Promise.all([
         Promise.resolve().then(() => {
           adminGroups.forEach((group: any) => {
+            console.log('admin', group.data())
             adminGroupNames.push(group.data().name);
           }
           )}
@@ -32,12 +33,13 @@ groups.post('/getGroups', async (req, res) => {
   
         Promise.resolve().then(() => {
           memberGroups.forEach((group: any) => {
+            console.log('member', group.data())
             memberGroupNames.push(group.data().name);
           }
           )}
         )
-      ])
-      
+      ]);
+      console.log(memberGroupNames)
 
       res.json({
         error: false,

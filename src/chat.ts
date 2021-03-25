@@ -26,7 +26,7 @@ chat.post("/:name/sendmsg", async (req, res) => {
     ]);
     if (
       decodedToken.uid === group.data()?.admin ||
-      decodedToken.uid in group.data()?.members
+      group.data()?.members.includes(decodedToken.uid)
     ) {
       db.collection("groups")
         .doc(req.params.name)
@@ -50,7 +50,7 @@ chat.post("/:name/add-member", async (req, res) => {
   try {
     if (req.headers.authorization?.startsWith("Bearer ")) {
       const idToken = req.headers.authorization.split("Bearer ")[1];
-
+      console.log(req.body);
       const [decodedToken, group] = await Promise.all([
         auth.verifyIdToken(idToken),
         db.collection("groups").doc(req.params.name).get(),
@@ -64,7 +64,7 @@ chat.post("/:name/add-member", async (req, res) => {
 
         const userRecord = await auth.getUserByEmail(req.body.userEmail);
 
-        if (!(userRecord.uid in groupData.members)) {
+        if (!(groupData.members.includes(userRecord.uid))) {
 
           const newMembers = groupData.members;
           newMembers.push(userRecord.uid);
@@ -92,6 +92,7 @@ chat.post("/:name/add-member", async (req, res) => {
         `);
     }
   } catch (err) {
+    // ERROR OCCURS
     console.log(err);
     res.sendStatus(500);
   }

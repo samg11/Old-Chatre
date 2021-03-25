@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 
 // BODY PARSER
-app.use(express.json());
+app.use(express.json())
 
 // LOGGER
 app.use(morgan(`:method :status :response-time ms :url`));

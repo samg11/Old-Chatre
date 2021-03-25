@@ -52,7 +52,30 @@ auth.onAuthStateChanged(user => {
 })
 
 
-// ADD MEMBER
+// ADMIN CONTROLS
 if (rank === 'admin') {
     $("#addMemberCollapseButton").on('click', () => $("#addMemberCollapse").collapse('toggle'));
+
+    $('#addMemberForm').on('submit', async (e) => {
+        e.preventDefault();
+        const authToken = await auth.currentUser.getIdToken(true);
+        console.log(authToken);
+        console.log($('#userEmail').val());
+        const res = await fetch(`/chat/${groupName}/add-member`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                authorization: 'Bearer ' + authToken
+            },
+            body: JSON.stringify({
+                userEmail: $('#userEmail').val()
+            })
+        }).then(res => res.json());
+
+        console.log(res);
+        if (res.error) {
+            alert(res.msg);
+        }
+    });
 }
+
