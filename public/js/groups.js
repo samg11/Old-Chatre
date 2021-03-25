@@ -7,7 +7,7 @@
 function renderGroups(groups) {
     Promise.resolve().then(() => {groups.adminGroups.forEach((group) => {
         $('#admin-group-list').append(`
-            <a href="/chat/${group}" class="list-group-item list-group-item-action">
+            <a href="/chat/${group}/a" class="list-group-item list-group-item-action">
                 ${group}
             </a>
         `);
@@ -15,7 +15,7 @@ function renderGroups(groups) {
 
     Promise.resolve().then(() => {groups.memberGroups.forEach((group) => {
         $('#member-group-list').append(`
-            <a href="/chat/${group}" class="list-group-item list-group-item-action">
+            <a href="/chat/${group}/m" class="list-group-item list-group-item-action">
                 ${group}
             </a>
         `);
@@ -57,7 +57,7 @@ $('#create-group-form').on('submit', (e) => {
 
     e.preventDefault();
     const name = document.getElementById('group-name').value;
-    if (confirm(`Are you sure you would like to create a new group entitled, ${name}?`)) {
+    if (confirm(`Are you sure you would like to create a new group with the title: ${name}?`)) {
         createGroup(name);
     }
 });
