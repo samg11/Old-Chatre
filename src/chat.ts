@@ -17,12 +17,20 @@ chat.get("/:name/:rank", async (req, res) => {
   });
 });
 
+chat.get('/:name/getMembers', async (req, res) => {
+  res.send('Get Member Endpoint')
+})
+
 chat.post("/:name/sendmsg", async (req, res) => {
   if (req.headers?.authorization?.startsWith("Bearer ")) {
+    const MAX_TIME = 1296000; // 15 * 86400
+
     const idToken = req.headers.authorization.split("Bearer ")[1];
-    const [decodedToken, group] = await Promise.all([
+    const [decodedToken, group, oldDocs] = await Promise.all([
       auth.verifyIdToken(idToken),
       db.collection("groups").doc(req.params.name).get(),
+      db.collection('groups').doc(req.params.name).collection('messages')
+        .where('date_created', '<', (Date.now() / 1000) - MAX_TIME).get()
     ]);
     if (
       decodedToken.uid === group.data()?.admin ||
@@ -37,10 +45,19 @@ chat.post("/:name/sendmsg", async (req, res) => {
           posted_by: decodedToken.name,
           image: null,
         });
+      
+
       res.sendStatus(201);
-    } else {
+      } else {
       res.sendStatus(401);
     }
+
+    oldDocs.forEach((doc) => {
+      console.log('old doc')
+      db.collection('groups').doc(req.params.name).collection('messages').doc(doc.id).delete()
+        .catch(console.error)
+    });
+
   } else {
     res.sendStatus(401);
   }

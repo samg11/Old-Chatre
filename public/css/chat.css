@@ -43,7 +43,7 @@ main > div{
 
 .message > .user {
   background-color: #d3dce8;
-  min-width: 200px;
+  min-width: 10%;
 }
 
 #chat-bar {
