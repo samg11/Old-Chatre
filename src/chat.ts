@@ -10,7 +10,6 @@ chat.get("/:name/:rank", async (req, res) => {
   const group: Group = (
     await db.collection("groups").doc(req.params.name).get()
   ).data();
-  console.log(group);
   res.render("pages/chat", {
     groupName: group.name,
     rank: req.params.rank === "a" ? "admin" : "member",
@@ -51,7 +50,6 @@ chat.post("/:name/add-member", async (req, res) => {
   try {
     if (req.headers.authorization?.startsWith("Bearer ")) {
       const idToken = req.headers.authorization.split("Bearer ")[1];
-      console.log(req.body);
       const [decodedToken, group] = await Promise.all([
         auth.verifyIdToken(idToken),
         db.collection("groups").doc(req.params.name).get(),
