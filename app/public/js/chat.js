@@ -21,29 +21,38 @@ $('#chat-bar').on('submit', async (e) => {
 
 auth.onAuthStateChanged(user => {
     if (user) {
-        db.collection("groups").doc(groupName).collection('messages').orderBy('date_created')
-        .onSnapshot(col => {
+        db.collection("groups").doc(groupName).collection('messages').orderBy('date_created', 'desc').limit(20)
+        .onSnapshot(async (col) => {
             $('#messages').html('');
             col.forEach(doc => {
                 const msg = doc.data();
+                const timeSince = moment(new Date(msg.date_created)).fromNow();
+
+                const timeSinceElement = $(document).width() >= 992 ? $("<div></div>")
+                    .addClass('timeSince p-2 bd-highlight')
+                    .text(timeSince)
+                    :''
+
                 $('#messages')
-                    .append(
+                    .prepend(
                         $("<div></div>")
-                            .addClass('message')
+                            .addClass('message d-flex bd-highlight mb-3 justify-content-between')
                             
                             .append(
-                                $("<span></span>")
-                                    .addClass('user')
+                                $("<div></div>")
+                                    .addClass('user p-2 bd-highlight')
                                     .text(msg.posted_by)
                             )
-                            
-                            .append(': ')
 
                             .append(
-                                $("<span></span>")
-                                    .addClass('text')
+                                $("<div></div>")
+                                    .addClass('text p-2 bd-highlight flex-grow-1')
                                     .text(msg.text)
                             )
+                            
+                            .append(timeSinceElement)
+
+                            
                     );
             });
             $('#messages').scrollTop($('#messages')[0].scrollHeight);

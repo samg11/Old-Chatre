@@ -14,6 +14,7 @@ chat.get("/:name/:rank", async (req, res) => {
   res.render("pages/chat", {
     groupName: group.name,
     rank: req.params.rank === "a" ? "admin" : "member",
+    time: Date.now()
   });
 });
 
@@ -32,7 +33,7 @@ chat.post("/:name/sendmsg", async (req, res) => {
         .doc(req.params.name)
         .collection("messages")
         .add({
-          date_created: Math.floor(new Date().getTime() / 1000),
+          date_created: Date.now(),
           text: req.body.text,
           posted_by: decodedToken.name,
           image: null,

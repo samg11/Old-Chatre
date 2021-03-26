@@ -39,7 +39,7 @@ groups.post('/getGroups', async (req, res) => {
           )}
         )
       ]);
-      console.log(memberGroupNames)
+      console.log(memberGroupNames);
 
       res.json({
         error: false,
