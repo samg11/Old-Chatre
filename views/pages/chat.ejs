@@ -15,21 +15,46 @@
      
       <div>
         <h1><%= groupName %></h1>
-
-        <% if (rank==='admin' ) /* ADMIN */ { %>
         <p>
           <button
             class="btn btn-primary"
             type="button"
-            id="addMemberCollapseButton"
+            id="viewMembersCollapseButton"
             data-toggle="collapse"
-            data-target="#addMemberCollapse"
+            data-target="#viewMembersCollapse"
             aria-expanded="false"
-            aria-controls="addMemberCollapse"
+            aria-controls="viewMembersCollapse"
           >
-            Add Member
+            Members
           </button>
         </p>
+
+        <% if (rank==='admin' ) /* ADMIN */ { %>
+          <p>
+            <button
+              class="btn btn-primary"
+              type="button"
+              id="addMemberCollapseButton"
+              data-toggle="collapse"
+              data-target="#addMemberCollapse"
+              aria-expanded="false"
+              aria-controls="addMemberCollapse"
+            >
+              Add Member
+            </button>
+          </p>
+
+        <% } %> 
+
+        <div class="collapse" id="viewMembersCollapse">
+          <div class="card card-body">
+            <ul id="members">
+              
+            </ul>
+          </div>
+        </div>
+
+        <% if (rank==='admin' ) /* ADMIN */ { %>
         <div class="collapse" id="addMemberCollapse">
           <div class="card card-body">
 
@@ -50,11 +75,12 @@
             </form>
           </div>
           </div>
-        </div>
-
-        <% } /* MEMBER */ else { %>
-        <p>Member</p>
+          
         <% } %>
+
+        
+
+      </div>
 
         <div id="messages">
           <!-- messages go here -->

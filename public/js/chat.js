@@ -62,6 +62,31 @@ auth.onAuthStateChanged(user => {
 
 
 // ADMIN CONTROLS
+$("#viewMembersCollapseButton").on('click', () => $("#viewMembersCollapse").collapse('toggle'));
+
+auth.onAuthStateChanged(async (user) => {
+    if (user) {
+        const authToken = await user.getIdToken(true);
+        console.log(authToken);
+        const members = await fetch(`/chat/${groupName}/getMembers`, {
+            method: 'POST',
+            'headers' : {
+                'Content-Type': 'application/json',
+                'authorization': 'Bearer ' + authToken
+            }
+        }).then(res => res.json());
+
+        console.log(members);
+        members.forEach(member => {
+            $('#members').append(`
+                <li data-toggle="tooltip" title="${member[0]}">
+                    ${member[1]}
+                </li>
+            `);
+        });
+    }
+});
+
 if (rank === 'admin') {
     $("#addMemberCollapseButton").on('click', () => $("#addMemberCollapse").collapse('toggle'));
 
@@ -79,7 +104,7 @@ if (rank === 'admin') {
             body: JSON.stringify({
                 userEmail: $('#userEmail').val()
             })
-        }).then(res => res.json());
+        }).then(res => res.status);
 
         console.log(res);
         if (res.error) {

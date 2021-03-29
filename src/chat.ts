@@ -17,27 +17,40 @@ chat.get("/:name/:rank", async (req, res) => {
   });
 });
 
-chat.get('/:name/getMembers', async (req, res) => {
+chat.post('/:name/getMembers', async (req, res) => {
   if (req.headers?.authorization?.startsWith("Bearer ")) {
     const idToken = req.headers.authorization.split("Bearer ")[1];
     const [decodedToken, group] = await Promise.all([
       auth.verifyIdToken(idToken),
       db.collection("groups").doc(req.params.name).get()
     ]);
+    
+    // @ts-ignore
+    const groupData: Group = group.data();
 
-    const members = group.data()?.members;
+    const members = groupData?.members;
 
     if (
-      decodedToken.uid === group.data()?.admin ||
+      decodedToken.uid === groupData.admin ||
       members.includes(decodedToken.uid)
     ) {
-      res.json(members.map(async (member: string) => {
-        const userRecord = await auth.getUser(member);
-        return [
-          userRecord.email,
-          userRecord.displayName
-        ]
-      }));
+      
+      const memberList: string[][] = [];
+
+      const admin = await auth.getUser(groupData.admin);
+
+      // @ts-ignore
+      memberList.push([ admin.email, admin.displayName ])
+
+      members.forEach((member: string) => {
+        auth.getUser(member).then(user => {
+          // @ts-ignore
+          memberList.push([ user.email, user.displayName]);
+          res.json(memberList);
+        })
+      })
+
+      
     } else {
       res.sendStatus(401);
     }
