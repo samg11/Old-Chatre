@@ -79,7 +79,7 @@ auth.onAuthStateChanged(async (user) => {
         console.log(members);
         members.forEach(member => {
             $('#members').append(`
-                <li data-toggle="tooltip" title="${member[0]}">
+                <li data-toggle="tooltip" data-placement="bottom" title="${member[0]}">
                     ${member[1]}
                 </li>
             `);
