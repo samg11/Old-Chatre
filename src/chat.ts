@@ -18,12 +18,39 @@ chat.get("/:name/:rank", async (req, res) => {
 });
 
 chat.get('/:name/getMembers', async (req, res) => {
-  res.send('Get Member Endpoint')
+  if (req.headers?.authorization?.startsWith("Bearer ")) {
+    const idToken = req.headers.authorization.split("Bearer ")[1];
+    const [decodedToken, group] = await Promise.all([
+      auth.verifyIdToken(idToken),
+      db.collection("groups").doc(req.params.name).get()
+    ]);
+
+    const members = group.data()?.members;
+
+    if (
+      decodedToken.uid === group.data()?.admin ||
+      members.includes(decodedToken.uid)
+    ) {
+      res.json(members.map(async (member: string) => {
+        const userRecord = await auth.getUser(member);
+        return [
+          userRecord.email,
+          userRecord.displayName
+        ]
+      }));
+    } else {
+      res.sendStatus(401);
+    }
+
+  } else {
+    res.sendStatus(401);
+  }
+  
 })
 
 chat.post("/:name/sendmsg", async (req, res) => {
   if (req.headers?.authorization?.startsWith("Bearer ")) {
-    const MAX_TIME = 1296000; // 15 * 86400
+    const MAX_TIME = 1296000; // 15 * 86400 (15 days)
 
     const idToken = req.headers.authorization.split("Bearer ")[1];
     const [decodedToken, group, oldDocs] = await Promise.all([
