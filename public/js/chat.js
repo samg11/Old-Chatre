@@ -28,6 +28,10 @@ auth.onAuthStateChanged(user => {
                 const msg = doc.data();
                 const timeSince = moment(new Date(msg.date_created)).fromNow();
 
+                const initials = (name) => (
+                    name.split(' ').map(n => n.charAt(0)).join('')
+                )
+
                 const timeSinceElement = $(document).width() >= 992 ? $("<div></div>")
                     .addClass('timeSince p-2 bd-highlight')
                     .text(timeSince)
@@ -39,14 +43,25 @@ auth.onAuthStateChanged(user => {
                             .addClass('message d-flex bd-highlight mb-3 justify-content-between')
                             
                             .append(
-                                $("<div></div>")
-                                    .addClass('user p-2 bd-highlight')
-                                    .text(msg.posted_by)
+                                $('<div></div>')
+                                    .html(
+                                        $('<img>')
+                                            .addClass('user-icon')
+                                            .attr('src', msg.userIcon)
+                                    )
+                                    .addClass('user-icon-container bd-highlight')
+                                    
                             )
 
                             .append(
                                 $("<div></div>")
-                                    .addClass('text p-2 bd-highlight flex-grow-1')
+                                    .addClass('user p-2 bd-highlight')
+                                    .text($(document).width() >= 992 ? msg.posted_by : initials(msg.posted_by))
+                            )
+
+                            .append(
+                                $("<div></div>")
+                                    .addClass('text p-2 bd-highlight flex-grow-1 text-break')
                                     .text(msg.text)
                             )
                             

@@ -42,13 +42,19 @@ chat.post('/:name/getMembers', async (req, res) => {
       // @ts-ignore
       memberList.push([ admin.email, admin.displayName ])
 
-      members.forEach((member: string) => {
-        auth.getUser(member).then(user => {
-          // @ts-ignore
-          memberList.push([ user.email, user.displayName]);
-          res.json(memberList);
-        })
-      })
+      if (members.length) {
+        members.forEach((member: string) => {
+          auth.getUser(member).then(user => {
+            // @ts-ignore
+            memberList.push([ user.email, user.displayName]);
+            res.json(memberList);
+          });
+        });
+      } else {
+        res.json(memberList);
+      }
+
+      
 
       
     } else {
@@ -84,6 +90,7 @@ chat.post("/:name/sendmsg", async (req, res) => {
           text: req.body.text,
           posted_by: decodedToken.name,
           image: null,
+          userIcon: decodedToken.picture
         });
       
 

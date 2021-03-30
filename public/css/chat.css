@@ -25,6 +25,10 @@ main > div{
   border: 1px solid rgba(86,61,124,0.15);
 }
 
+.message {
+  max-height: 70%;
+}
+
 .message > .text {
   overflow: hidden;
 }
@@ -33,6 +37,20 @@ main > div{
 .message > .user {
   background-color: #d3dce8;
   min-width: 10%;
+}
+
+.message > .user-icon-container {
+  min-width: 14.5%;
+  max-width: 15%;
+}
+
+.message > .user-icon-container > .user-icon {
+  border-radius: 50%;
+  width: 80%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  /* height: 15%; */
 }
 
 #chat-bar {
