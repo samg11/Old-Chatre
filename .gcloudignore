@@ -18,3 +18,8 @@ node_modules/
 
 # env
 .env
+
+# dev
+src/
+nodemon.json
+tsconfig.json
