@@ -5,7 +5,7 @@
 body {
   position: relative;
   min-height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 main > div{
