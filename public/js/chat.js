@@ -57,7 +57,7 @@ auth.onAuthStateChanged(user => {
                                 $("<div></div>")
                                     .addClass('user p-2 bd-highlight')
                                     .html(
-                                        $('<p></p>')
+                                        $('<span></span>')
                                             .addClass('user-text')
                                             .text($(document).width() >= 992 ? msg.posted_by : initials(msg.posted_by))
                                         )

@@ -36,17 +36,21 @@ main > div{
 
 .message > .user {
   background-color: #d3dce8;
-  min-width: 10%;
+  /* min-width: 10%; */
   display: flex;
+
+  min-width: 15%;
+  width: 15%;
 }
 
-.message > .user > p {
+.message > .user > .user-text {
   margin: auto;
 }
 
 .message > .user-icon-container {
-  min-width: 10%;
+  min-width: 8%;
   width: 10%;
+  max-width: 120px;
   display: flex;
 }
 
