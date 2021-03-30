@@ -26,15 +26,15 @@ auth.onAuthStateChanged(user => {
             $('#messages').html('');
             col.forEach(doc => {
                 const msg = doc.data();
-                const timeSince = moment(new Date(msg.date_created)).fromNow();
 
                 const initials = (name) => (
                     name.split(' ').map(n => n.charAt(0)).join('')
                 )
 
-                const timeSinceElement = $(document).width() >= 992 ? $("<div></div>")
-                    .addClass('timeSince p-2 bd-highlight')
-                    .text(timeSince)
+                const timeSinceElement = $(document).width() >= 992 ? 
+                    $("<div></div>")
+                        .addClass('time-since p-2 bd-highlight')
+                        .text(moment(new Date(msg.date_created)).fromNow())
                     :''
 
                 $('#messages')
@@ -50,7 +50,6 @@ auth.onAuthStateChanged(user => {
                                             .attr('src', msg.userIcon)
                                     )
                                     .addClass('user-icon-container bd-highlight')
-                                    
                             )
 
                             .append(
