@@ -19,8 +19,27 @@ $('#chat-bar').on('submit', async (e) => {
         .finally(() => $('#msgText').val(''))
 });
 
-auth.onAuthStateChanged(user => {
+auth.onAuthStateChanged(async (user) => {
     if (user) {
+        const authToken = await user.getIdToken(true);
+        console.log(authToken);
+        const members = await fetch(`/chat/${groupName}/getMembers`, {
+            method: 'POST',
+            'headers' : {
+                'Content-Type': 'application/json',
+                'authorization': 'Bearer ' + authToken
+            }
+        }).then(res => res.json());
+
+        console.log(members);
+        members.forEach(member => {
+            $('#members').append(`
+                <li data-toggle="tooltip" data-placement="bottom" title="${member[0]}">
+                    ${member[1]}
+                </li>
+            `);
+        });
+
         db.collection("groups").doc(groupName).collection('messages').orderBy('date_created', 'desc').limit(20)
         .onSnapshot(async (col) => {
             $('#messages').html('');
@@ -79,40 +98,23 @@ auth.onAuthStateChanged(user => {
 })
 
 
-// ADMIN CONTROLS
 $("#viewMembersCollapseButton").on('click', () => $("#viewMembersCollapse").collapse('toggle'));
 
 auth.onAuthStateChanged(async (user) => {
     if (user) {
-        const authToken = await user.getIdToken(true);
-        console.log(authToken);
-        const members = await fetch(`/chat/${groupName}/getMembers`, {
-            method: 'POST',
-            'headers' : {
-                'Content-Type': 'application/json',
-                'authorization': 'Bearer ' + authToken
-            }
-        }).then(res => res.json());
-
-        console.log(members);
-        members.forEach(member => {
-            $('#members').append(`
-                <li data-toggle="tooltip" data-placement="bottom" title="${member[0]}">
-                    ${member[1]}
-                </li>
-            `);
-        });
+        
     }
 });
 
+// ADMIN CONTROLS
 if (rank === 'admin') {
     $("#addMemberCollapseButton").on('click', () => $("#addMemberCollapse").collapse('toggle'));
 
     $('#addMemberForm').on('submit', async (e) => {
         e.preventDefault();
         const authToken = await auth.currentUser.getIdToken(true);
-        console.log(authToken);
         console.log($('#userEmail').val());
+
         const res = await fetch(`/chat/${groupName}/add-member`, {
             method: 'POST',
             headers: {
@@ -122,10 +124,12 @@ if (rank === 'admin') {
             body: JSON.stringify({
                 userEmail: $('#userEmail').val()
             })
-        }).then(res => res.status);
+        }).then(res => res.json());
 
         console.log(res);
         if (res.error) {
+            alert(res.msg);
+        } else {
             alert(res.msg);
         }
     });

@@ -114,18 +114,23 @@ chat.post("/:name/add-member", async (req, res) => {
   try {
     if (req.headers.authorization?.startsWith("Bearer ")) {
       const idToken = req.headers.authorization.split("Bearer ")[1];
-      const [decodedToken, group] = await Promise.all([
+
+      const [decodedToken, group, userRecord] = await Promise.all([
         auth.verifyIdToken(idToken),
         db.collection("groups").doc(req.params.name).get(),
+        auth.getUserByEmail(req.body.userEmail)
       ]);
 
       // @ts-ignore
       const groupData: Group = group.data();
 
-      if (decodedToken.uid === groupData.admin) {
-        // ADMIN
+      if (!userRecord) {
+        res.json({ error: true, msg: 'User does not exist' });
+      }
 
-        const userRecord = await auth.getUserByEmail(req.body.userEmail);
+
+      if (decodedToken.uid === groupData.admin && userRecord) {
+        // ADMIN
 
         if (!(groupData.members.includes(userRecord.uid))) {
 
@@ -136,9 +141,9 @@ chat.post("/:name/add-member", async (req, res) => {
             members: newMembers
           });
 
-          res.json({ error: false, msg: `Successfully added user to group`});
+          res.json({ error: false, msg: `Successfully added ${userRecord.displayName} to your group!`});
         } else {
-          res.status(409).json({ error: true, msg: 'User already in group'});
+          res.status(409).json({ error: true, msg: `${userRecord.displayName} is already in your group`});
         }
 
       } else {
@@ -157,7 +162,7 @@ chat.post("/:name/add-member", async (req, res) => {
   } catch (err) {
     // ERROR OCCURS
     console.log(err);
-    res.sendStatus(500);
+    res.status(500).json({ error: true, msg: 'User does not exist' });
   }
 });
 
