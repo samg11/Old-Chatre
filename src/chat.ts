@@ -29,6 +29,7 @@ chat.post('/:name/getMembers', async (req, res) => {
     const groupData: Group = group.data();
 
     const members = groupData?.members;
+    console.log(members)
 
     if (
       decodedToken.uid === groupData.admin ||
@@ -45,17 +46,18 @@ chat.post('/:name/getMembers', async (req, res) => {
       if (members.length) {
         members.forEach((member: string) => {
           auth.getUser(member).then(user => {
+            console.log(1);
             // @ts-ignore
             memberList.push([ user.email, user.displayName]);
-            res.json(memberList);
-          });
+            if (memberList.length >= members.length + 1) {
+              res.json(memberList);
+            }
+          }).catch(console.error);
         });
       } else {
+        console.log(2);
         res.json(memberList);
-      }
-
-      
-
+      } 
       
     } else {
       res.sendStatus(401);
@@ -119,7 +121,7 @@ chat.post("/:name/add-member", async (req, res) => {
         auth.verifyIdToken(idToken),
         db.collection("groups").doc(req.params.name).get(),
         auth.getUserByEmail(req.body.userEmail)
-      ]);
+      ])
 
       // @ts-ignore
       const groupData: Group = group.data();
@@ -162,7 +164,38 @@ chat.post("/:name/add-member", async (req, res) => {
   } catch (err) {
     // ERROR OCCURS
     console.log(err);
-    res.status(500).json({ error: true, msg: 'User does not exist' });
+    // res.status(500).json({ error: true, msg: 'User does not exist' });
+  }
+});
+
+chat.post("/:name/remove-member", async (req, res) => {
+  if (req.headers.authorization?.startsWith("Bearer ")) {
+    const idToken = req.headers.authorization.split("Bearer ")[1];
+
+    const [decodedToken, group, userRecord] = await Promise.all([
+      auth.verifyIdToken(idToken),
+      db.collection("groups").doc(req.params.name).get(),
+      auth.getUserByEmail(req.body.userEmail)
+    ]);
+
+    // @ts-ignore
+    const groupData: Group = group.data();
+
+    if (decodedToken.uid === groupData.admin) {
+      if (groupData.members.includes(userRecord.uid)) {
+        db.collection("groups").doc(req.params.name).update({
+          members: groupData.members.filter(m => m !== userRecord.uid)
+        });
+      } else {
+        res.status(400).send(`${userRecord.email} is not the email of a member`)
+      }
+    } else {
+      res.status(403).send('You must be an admin to remove a member')
+    }
+
+    res.send('remove member endpoint');
+  } else {
+    res.status(401).send('remember to set the authorization header to a jwt')
   }
 });
 
