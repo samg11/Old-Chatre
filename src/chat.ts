@@ -29,7 +29,6 @@ chat.post('/:name/getMembers', async (req, res) => {
     const groupData: Group = group.data();
 
     const members = groupData?.members;
-    console.log(members)
 
     if (
       decodedToken.uid === groupData.admin ||
@@ -42,22 +41,18 @@ chat.post('/:name/getMembers', async (req, res) => {
 
       // @ts-ignore
       memberList.push([ admin.email, admin.displayName ])
-      console.log(memberList);
 
       if (members.length) {
-        console.log('members', members)
         members.forEach((member: string) => {
           auth.getUser(member).then(user => {
             // @ts-ignore
             memberList.push([ user.email, user.displayName]);
             if (memberList.length >= members.length + 1) {
-              console.log(memberList);
               res.json(memberList);
             }
           }).catch(console.error);
         });
       } else {
-        console.log(memberList);
         res.json(memberList);
       } 
       
@@ -104,7 +99,6 @@ chat.post("/:name/sendmsg", async (req, res) => {
     }
 
     oldDocs.forEach((doc) => {
-      console.log('old doc')
       db.collection('groups').doc(req.params.name).collection('messages').doc(doc.id).delete()
         .catch(console.error)
     });
@@ -173,7 +167,6 @@ chat.post("/:name/add-member", async (req, res) => {
 chat.post("/:name/remove-member", async (req, res) => {
   if (req.headers.authorization?.startsWith("Bearer ")) {
     const idToken = req.headers.authorization.split("Bearer ")[1];
-    console.log('request body:', req.body)
     const [decodedToken, group, userRecord] = await Promise.all([
       auth.verifyIdToken(idToken),
       db.collection("groups").doc(req.params.name).get(),
