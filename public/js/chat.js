@@ -37,7 +37,7 @@ auth.onAuthStateChanged(async (user) => {
 
             if (rank == 'admin' && member[0] != user.email) {
                 memberElement.append(
-                    $(`<button class="btn btn-danger">Delete</button>`)
+                    $(`<button class="btn btn-danger">Remove</button>`)
                         .on('click', () => {
                             Promise.resolve().then(() => {
                                 if (confirm(`Are you sure you want to remove ${member[1]}(${member[0]}) from the group?`)) {
