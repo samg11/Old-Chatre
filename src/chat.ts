@@ -42,20 +42,22 @@ chat.post('/:name/getMembers', async (req, res) => {
 
       // @ts-ignore
       memberList.push([ admin.email, admin.displayName ])
+      console.log(memberList);
 
       if (members.length) {
+        console.log('members', members)
         members.forEach((member: string) => {
           auth.getUser(member).then(user => {
-            console.log(1);
             // @ts-ignore
             memberList.push([ user.email, user.displayName]);
             if (memberList.length >= members.length + 1) {
+              console.log(memberList);
               res.json(memberList);
             }
           }).catch(console.error);
         });
       } else {
-        console.log(2);
+        console.log(memberList);
         res.json(memberList);
       } 
       
@@ -67,7 +69,7 @@ chat.post('/:name/getMembers', async (req, res) => {
     res.sendStatus(401);
   }
   
-})
+});
 
 chat.post("/:name/sendmsg", async (req, res) => {
   if (req.headers?.authorization?.startsWith("Bearer ")) {
@@ -134,7 +136,7 @@ chat.post("/:name/add-member", async (req, res) => {
       if (decodedToken.uid === groupData.admin && userRecord) {
         // ADMIN
 
-        if (!(groupData.members.includes(userRecord.uid))) {
+        if (!(groupData.members.includes(userRecord.uid)) && decodedToken.uid !== groupData.admin) {
 
           const newMembers = groupData.members;
           newMembers.push(userRecord.uid);
@@ -145,7 +147,7 @@ chat.post("/:name/add-member", async (req, res) => {
 
           res.json({ error: false, msg: `Successfully added ${userRecord.displayName} to your group!`});
         } else {
-          res.status(409).json({ error: true, msg: `${userRecord.displayName} is already in your group`});
+          res.status(409).json({ error: true, msg: `${userRecord.displayName} is already in your group!`});
         }
 
       } else {
@@ -171,7 +173,7 @@ chat.post("/:name/add-member", async (req, res) => {
 chat.post("/:name/remove-member", async (req, res) => {
   if (req.headers.authorization?.startsWith("Bearer ")) {
     const idToken = req.headers.authorization.split("Bearer ")[1];
-
+    console.log('request body:', req.body)
     const [decodedToken, group, userRecord] = await Promise.all([
       auth.verifyIdToken(idToken),
       db.collection("groups").doc(req.params.name).get(),
@@ -186,6 +188,8 @@ chat.post("/:name/remove-member", async (req, res) => {
         db.collection("groups").doc(req.params.name).update({
           members: groupData.members.filter(m => m !== userRecord.uid)
         });
+
+        res.send('remove member endpoint');
       } else {
         res.status(400).send(`${userRecord.email} is not the email of a member`)
       }
@@ -193,7 +197,6 @@ chat.post("/:name/remove-member", async (req, res) => {
       res.status(403).send('You must be an admin to remove a member')
     }
 
-    res.send('remove member endpoint');
   } else {
     res.status(401).send('remember to set the authorization header to a jwt')
   }

@@ -22,7 +22,6 @@ $('#chat-bar').on('submit', async (e) => {
 auth.onAuthStateChanged(async (user) => {
     if (user) {
         const authToken = await user.getIdToken(true);
-        console.log(authToken);
         const members = await fetch(`/chat/${groupName}/getMembers`, {
             method: 'POST',
             'headers' : {
@@ -31,13 +30,39 @@ auth.onAuthStateChanged(async (user) => {
             }
         }).then(res => res.json());
 
-        console.log(members);
         members.forEach(member => {
-            $('#members').append(`
-                <li data-toggle="tooltip" data-placement="bottom" title="${member[0]}">
-                    ${member[1]}
-                </li>
-            `);
+            const memberElement = $(`
+                <li data-toggle="tooltip" class="list-group-item" data-placement="bottom" title="${member[0]}"></li>
+            `).html($('<p></p>').text(`${member[1]}`));
+
+            if (rank == 'admin' && member[0] != user.email) {
+                memberElement.append(
+                    $(`<button class="btn btn-danger">Delete</button>`)
+                        .on('click', () => {
+                            Promise.resolve().then(() => {
+                                if (confirm(`Are you sure you want to remove ${member[1]}(${member[0]}) from the group?`)) {
+                                    fetch(`/chat/${groupName}/remove-member`, {
+                                        method: 'POST',
+                                        headers : {
+                                            'Content-Type': 'application/json',
+                                            'authorization': 'Bearer ' + authToken
+                                        },
+                                        body: JSON.stringify({
+                                            userEmail: member[0]
+                                        })
+                                    }).then(res => res.text()).then(res => {
+                                        console.log(res);
+                                        location.reload();
+                                    })
+                                }
+                            })
+                        })
+                );
+
+
+            }
+
+            $('#members').append(memberElement);
         });
 
         db.collection("groups").doc(groupName).collection('messages').orderBy('date_created', 'desc').limit(20)
@@ -99,12 +124,6 @@ auth.onAuthStateChanged(async (user) => {
 
 
 $("#viewMembersCollapseButton").on('click', () => $("#viewMembersCollapse").collapse('toggle'));
-
-auth.onAuthStateChanged(async (user) => {
-    if (user) {
-        
-    }
-});
 
 // ADMIN CONTROLS
 if (rank === 'admin') {
