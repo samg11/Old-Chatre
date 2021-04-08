@@ -1,0 +1,19 @@
+section#content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+article#header-description {
+    text-align: center;
+    padding: 15px;
+    width: 80%;
+    margin: 15px 0;
+    background: linear-gradient(183.25deg, #EBF1A8 -20.57%, rgba(255, 255, 255, 0) 97.31%), linear-gradient(134.3deg, #73C8A9 39.17%, rgba(255, 255, 255, 0) 91.95%), rgba(65, 85, 129, 0.78);
+    border-radius: 10px;
+    color: #363636;
+}
+
+article#header-description > *{
+    margin: 30px 0;
+}

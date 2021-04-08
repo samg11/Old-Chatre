@@ -2,4 +2,40 @@
 
 * {
     font-family: 'Source Code Pro', monospace;
+    padding: 0;
+    margin: 0;
 }
+
+body {
+    background-color: #ccc7b8;
+}
+
+nav.navbar {
+    background: linear-gradient(90deg, rgba(188, 195, 233, 0.9) 0%, rgba(255, 255, 255, 0) 100%), linear-gradient(90deg, rgba(0, 56, 255, 0.68) 0%, rgba(255, 255, 255, 0) 100%), linear-gradient(0deg, rgba(177, 115, 115, 0.6), rgba(177, 115, 115, 0.6)), linear-gradient(274.16deg, #E9B51A 45.83%, rgba(255, 255, 255, 0) 57.42%);
+}
+
+@keyframes navbar-links {
+    from {
+        border-radius: 0;
+    }
+    to {
+        border-radius: 10px;
+        font-size: larger;
+        background: #a1b2d1;
+        border: 1px solid black;
+    }
+  }
+
+@media not all and (pointer:none), not all and (pointer:coarse) {
+    ul.navbar-nav > .nav-item.notauth {
+        margin-right: 5px;
+    }
+    
+    ul.navbar-nav > .nav-item.notauth:hover {
+        animation-name: navbar-links;
+        animation-fill-mode: forwards;
+        animation-duration: 1s;
+        animation-timing-function: cubic-bezier(.94, .03, .44, .63);
+    }
+}
+
