@@ -1,0 +1,7 @@
+.list-of-groups > a:hover {
+    text-decoration: underline;
+}
+
+.list-of-groups {
+    opacity: 0.8;
+}
