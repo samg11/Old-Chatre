@@ -23,6 +23,7 @@ nav.navbar {
         font-size: larger;
         background: #a1b2d1;
         border: 1px solid black;
+        text-decoration: underline;
     }
   }
 
