@@ -71,8 +71,6 @@ main > div{
 
 .message > .time-since {
   min-width: 180px;
-  /* width: 100px; */
-  /* color: red; */
 }
 
 #chat-bar {
