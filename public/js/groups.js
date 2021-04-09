@@ -5,21 +5,27 @@
 //   });
 
 function renderGroups(groups) {
-    Promise.resolve().then(() => {groups.adminGroups.forEach((group) => {
-        $('#admin-group-list').append(`
-            <a href="/chat/${group}/a" class="list-group-item list-group-item-action">
-                ${group}
-            </a>
-        `);
-    })});
+    Promise.resolve().then(() => {
+        $("#admin-group-list > p").attr('hidden', 'true');
+        groups.adminGroups.forEach((group) => {
+            $('#admin-group-list').append(`
+                <a href="/chat/${group}/a" class="list-group-item list-group-item-action">
+                    ${group}
+                </a>
+            `);
+        }
+    )});
 
-    Promise.resolve().then(() => {groups.memberGroups.forEach((group) => {
-        $('#member-group-list').append(`
-            <a href="/chat/${group}/m" class="list-group-item list-group-item-action">
-                ${group}
-            </a>
-        `);
-    })});
+    Promise.resolve().then(() => {
+        $("#member-group-list > p").attr('hidden', 'true');
+        groups.memberGroups.forEach((group) => {
+            $('#member-group-list').append(`
+                <a href="/chat/${group}/m" class="list-group-item list-group-item-action">
+                    ${group}
+                </a>
+            `);
+        }
+    )});
 }
 
 auth.onAuthStateChanged(user => {
