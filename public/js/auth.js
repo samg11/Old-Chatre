@@ -13,12 +13,12 @@ signOutBtn.on("click", () => auth.signOut());
 auth.onAuthStateChanged(user => {
     if (user) {
         // signed in
-        whenSignedIn.show();
-        whenSignedOut.hide();
+        whenSignedIn.attr('hidden', false);
+        whenSignedOut.attr('hidden', true);
         $('img.profilePic').attr('src', user.photoURL)
     } else {
         // not signed in
-        whenSignedIn.hide();
-        whenSignedOut.show();
+        whenSignedIn.attr('hidden', true);
+        whenSignedOut.attr('hidden', false);
     }
 });
