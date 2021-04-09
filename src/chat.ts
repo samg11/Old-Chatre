@@ -20,6 +20,7 @@ chat.get("/:name/:rank", async (req, res) => {
 chat.post('/:name/getMembers', async (req, res) => {
   if (req.headers?.authorization?.startsWith("Bearer ")) {
     const idToken = req.headers.authorization.split("Bearer ")[1];
+    
     const [decodedToken, group] = await Promise.all([
       auth.verifyIdToken(idToken),
       db.collection("groups").doc(req.params.name).get()
@@ -35,25 +36,35 @@ chat.post('/:name/getMembers', async (req, res) => {
       members.includes(decodedToken.uid)
     ) {
       
-      const memberList: string[][] = [];
+      const memberDict: any = {};
 
       const admin = await auth.getUser(groupData.admin);
 
-      // @ts-ignore
-      memberList.push([ admin.email, admin.displayName ])
-
+      const userDataToSend = (u: any) => [
+        u.email,
+        u.displayName,
+        u.uid,
+        u.photoURL
+      ];
+      
+      memberDict[`${admin.uid}`] = userDataToSend(admin);
+      
       if (members.length) {
+        console.log(members)
         members.forEach((member: string) => {
+          console.log('member:', member)
           auth.getUser(member).then(user => {
-            // @ts-ignore
-            memberList.push([ user.email, user.displayName]);
-            if (memberList.length >= members.length + 1) {
-              res.json(memberList);
+            console.log('hello')
+            memberDict[`${user.uid}`] = userDataToSend(user);
+            console.log(members, members.length, memberDict, Object.keys(memberDict).length)
+            if (Object.keys(memberDict).length >= members.length + 1) {
+              console.log(memberDict)
+              res.json(memberDict);
             }
           }).catch(console.error);
         });
       } else {
-        res.json(memberList);
+        res.json(memberDict);
       } 
       
     } else {
@@ -87,9 +98,9 @@ chat.post("/:name/sendmsg", async (req, res) => {
         .add({
           date_created: Date.now(),
           text: req.body.text,
-          posted_by: decodedToken.name,
+          posted_by: decodedToken.uid,
           image: null,
-          userIcon: decodedToken.picture
+          // userIcon: decodedToken.picture
         });
       
 

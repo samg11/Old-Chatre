@@ -1,5 +1,4 @@
 const db = firebase.firestore();
-// const auth = firebase.auth();
 
 $('#chat-bar').on('submit', async (e) => {
     e.preventDefault();
@@ -29,8 +28,10 @@ auth.onAuthStateChanged(async (user) => {
                 'authorization': 'Bearer ' + authToken
             }
         }).then(res => res.json());
-
-        members.forEach(member => {
+        console.log(members)
+        
+        Object.keys(members).forEach((m) => {
+            const member = members[m];
             const memberElement = $(`
                 <li data-toggle="tooltip" class="list-group-item" data-placement="bottom" title="${member[0]}"></li>
             `).html($('<p></p>').text(`${member[1]}`));
@@ -51,7 +52,6 @@ auth.onAuthStateChanged(async (user) => {
                                             userEmail: member[0]
                                         })
                                     }).then(res => res.text()).then(res => {
-                                        console.log(res);
                                         location.reload();
                                     })
                                 }
