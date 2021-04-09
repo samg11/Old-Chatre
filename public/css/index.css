@@ -1,7 +1,13 @@
 section#content {
     display: flex;
+    text-align: center;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+section#content > * {
+    margin: 50px;
 }
 
 article#header-description {
@@ -16,4 +22,26 @@ article#header-description {
 
 article#header-description > *{
     margin: 30px 0;
+}
+
+#images {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#images > figure {
+    text-align:center;
+    
+    /* margin: 0 5%; */
+    width: 30%;
+}
+
+#images > figure > img {
+    width: 80%;
+}
+
+@media (max-width: 700px) {
+    #bottomSignInBTN {
+        width: 80%;
+    }
 }
