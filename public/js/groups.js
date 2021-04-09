@@ -1,9 +1,3 @@
-// firebase.auth().currentUser.getIdToken(true).then(function(idToken) {
-//     console.log(idToken)
-//   }).catch(function(error) {
-//     console.error(error)
-//   });
-
 function renderGroups(groups) {
     Promise.resolve().then(() => {
         $("#admin-group-list > p").attr('hidden', 'true');
