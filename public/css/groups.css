@@ -5,3 +5,9 @@
 .list-of-groups {
     opacity: 0.8;
 }
+
+@media (min-width: 500px) {
+    .list-of-groups {
+        max-width: 300px;
+    }
+}
