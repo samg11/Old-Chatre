@@ -39,9 +39,11 @@ article#header-description > *{
 #images > figure > img {
     width: 80%;
 }
-
+#groupsNloginBTNs {
+    width: 60%;
+}
 @media (max-width: 700px) {
-    #bottomSignInBTN {
+    .bottomBTNs {
         width: 80%;
     }
 }
