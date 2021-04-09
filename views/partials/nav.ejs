@@ -3,7 +3,7 @@
         <a class="navbar-brand" href="#">Chatre</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="whenSignedOut navbar-toggler-icon"></span>
+            <span hidden class="whenSignedOut navbar-toggler-icon"></span>
             <img width="50" style="margin-right:10px;border-radius:50%" class="whenSignedIn profilePic" alt="Profile Pic">
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -14,16 +14,16 @@
                 <li class="notauth nav-item whenSignedIn">
                     <a class="nav-link active" aria-current="page" href="/groups">Groups</a>
                 </li>
-                <li class="nav-item whenSignedOut">
+                <li hidden class="nav-item whenSignedOut">
                     <img
                         src="/public/img/google_signin_buttons/1x/btn_google_signin_dark_normal_web.png"
                         alt="Sign In With Google"
-                        class="signInBtn whenSignedOut"
+                        class="signInBtn"
                         style="cursor: pointer"
                     />
                 </li>
                 <li class="nav-item">
-                    <button type="button" class="signOutBtn whenSignedIn btn btn-danger">
+                    <button hidden type="button" class="signOutBtn whenSignedIn btn btn-danger">
                         Logout
                     </button>
                 </li>
