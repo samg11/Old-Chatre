@@ -30,6 +30,8 @@ auth.onAuthStateChanged(async (user) => {
         }).then(res => res.json());
         
         Object.keys(members).forEach((m) => {
+            // console.log(members)
+            // console.log(members[m])
             const member = members[m];
             const memberElement = $(`
                 <li data-toggle="tooltip" class="list-group-item" data-placement="bottom" title="${member[0]}"></li>
@@ -69,6 +71,7 @@ auth.onAuthStateChanged(async (user) => {
             $('#messages').html('');
             col.forEach(doc => {
                 const msg = doc.data();
+                const member = members[msg.posted_by];
 
                 const initials = (name) => (
                     name.split(' ').map(n => n.charAt(0)).join('')
@@ -90,7 +93,7 @@ auth.onAuthStateChanged(async (user) => {
                                     .html(
                                         $('<img>')
                                             .addClass('user-icon')
-                                            .attr('src', member[msg.posted_by][3])
+                                            .attr('src', member[3])
                                     )
                                     .addClass('user-icon-container bd-highlight')
                             )
@@ -101,7 +104,7 @@ auth.onAuthStateChanged(async (user) => {
                                     .html(
                                         $('<span></span>')
                                             .addClass('user-text')
-                                            .text($(document).width() >= 992 ? member[msg.posted_by][1] : initials(member[msg.posted_by][1]))
+                                            .text($(document).width() >= 992 ? member[1] : initials(member[1]))
                                         )
                             )
 
