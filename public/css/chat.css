@@ -34,43 +34,76 @@ main > div{
 }
 
 
-.message > .user {
-  background-color: #d3dce8;
+.message > .nameAndIcon {
   display: flex;
+  /* flex-direction: column; */
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  justify-content: flex-start;
+}
+
+.message > .nameAndIcon > .user {
   min-width: 15%;
   width: 15%;
 }
 
-.message > .user > .user-text {
-  margin: auto;
+.message > .nameAndIcon > .user.initials {
+  display: none;
 }
 
-.message > .user-icon-container {
-  min-width: 10%;
-  width: 10%;
-  max-width: 120px;
-  display: flex;
-}
-
-.message > .user-icon-container > .user-icon {
-  border-radius: 50%;
-  width: 100%;
+.message > .nameAndIcon > .user-icon {
+  border-radius: 30px;
   display: block;
-  margin: auto;
 }
 
-@media (min-width: 992px) {
-  .message > .user-icon-container {
-    padding: 15px;
+@media (max-width: 300px) {
+
+  .message > .nameAndIcon > .user {
+    display: none;
   }
 
-  .message > .user-icon-container > .user-icon {
-    width: 70%;
+  .message > .nameAndIcon > .user-icon {
+    margin: auto;
   }
 }
 
 .message > .time-since {
   min-width: 180px;
+}
+
+@media (max-width: 992px) {
+  .message > .time-since {
+    display: none;
+  }
+  .message > .nameAndIcon {
+    width: 30%;
+  }
+
+  .message > .nameAndIcon > .user.initials {
+    display: block;
+  }
+
+  .message > .nameAndIcon > .user.fullname {
+    display: none;
+  }
+}
+
+@media (max-width: 515px) {
+  .message > .nameAndIcon > .user-icon {
+    width: 50px;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 200px) {
+  .message > .nameAndIcon > .user-icon {
+    display: none;
+  }
+
+  .message > .nameAndIcon > .user {
+    display: block;
+  }
 }
 
 #chat-bar {

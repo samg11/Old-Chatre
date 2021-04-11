@@ -78,13 +78,8 @@ auth.onAuthStateChanged(async (user) => {
 
                 const initials = (name) => (
                     name.split(' ').map(n => n.charAt(0)).join('')
-                )
-
-                const timeSinceElement = $(document).width() >= 992 ? 
-                    $("<div></div>")
-                        .addClass('time-since p-2 bd-highlight')
-                        .text(moment(new Date(msg.date_created)).fromNow())
-                    :''
+                )                    
+                    
 
                 $('#messages')
                     .prepend(
@@ -94,23 +89,30 @@ auth.onAuthStateChanged(async (user) => {
                             
                             .append(
                                 $('<div></div>')
-                                    .html(
+                                    .addClass('nameAndIcon bd-highlight')
+                                    .append(
                                         $('<img>')
                                             .addClass('user-icon')
                                             .attr('src', member[3])
                                     )
-                                    .addClass('user-icon-container bd-highlight')
+
+                                    .append(
+                                        $("<p></p>")
+                                            .addClass('user fullname p-2')
+                                            .text(member[1])
+                                    )
+
+                                    .append(
+                                        $("<p></p>")
+                                            .addClass('user initials p-2')
+                                            .text(initials(member[1])
+                                        )
+                                    )
                             )
 
-                            .append(
-                                $("<div></div>")
-                                    .addClass('user p-2 bd-highlight')
-                                    .html(
-                                        $('<span></span>')
-                                            .addClass('user-text')
-                                            .text($(document).width() >= 992 ? member[1] : initials(member[1]))
-                                        )
-                            )
+                            
+
+                            
 
                             .append(
                                 $("<div></div>")
@@ -118,9 +120,13 @@ auth.onAuthStateChanged(async (user) => {
                                     .text(msg.text)
                             )
                             
-                            .append(timeSinceElement)
+                            .append(
+                                $("<div></div>")
+                                    .addClass('time-since p-2 bd-highlight')
+                                    .text(moment(new Date(msg.date_created)).fromNow())
+                            )
                             
-                    );
+                    )
             });
             $('#messages').scrollTop($('#messages')[0].scrollHeight);
         });
