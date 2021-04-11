@@ -50,11 +50,8 @@ chat.post('/:name/getMembers', async (req, res) => {
       memberDict[`${admin.uid}`] = userDataToSend(admin);
       
       if (members.length) {
-        console.log(members)
         members.forEach((member: string) => {
-          console.log('member:', member)
           auth.getUser(member).then(user => {
-            console.log('hello')
             memberDict[`${user.uid}`] = userDataToSend(user);
             console.log(members, members.length, memberDict, Object.keys(memberDict).length)
             if (Object.keys(memberDict).length >= members.length + 1) {
