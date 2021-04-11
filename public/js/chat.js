@@ -121,7 +121,6 @@ auth.onAuthStateChanged(async (user) => {
     }
 })
 
-
 $("#viewMembersCollapseButton").on('click', () => $("#viewMembersCollapse").collapse('toggle'));
 
 // ADMIN CONTROLS
