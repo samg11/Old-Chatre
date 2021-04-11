@@ -73,6 +73,9 @@ auth.onAuthStateChanged(async (user) => {
                 const msg = doc.data();
                 const member = members[msg.posted_by];
 
+                // class (html) for whether the message was by the current user
+                const posted_by_whom_class = msg.posted_by === auth.currentUser.uid ? 'me' : 'them';
+
                 const initials = (name) => (
                     name.split(' ').map(n => n.charAt(0)).join('')
                 )
@@ -87,6 +90,7 @@ auth.onAuthStateChanged(async (user) => {
                     .prepend(
                         $("<div></div>")
                             .addClass('message d-flex bd-highlight mb-3 justify-content-between')
+                            .addClass(posted_by_whom_class)
                             
                             .append(
                                 $('<div></div>')
@@ -115,7 +119,6 @@ auth.onAuthStateChanged(async (user) => {
                             )
                             
                             .append(timeSinceElement)
-
                             
                     );
             });
