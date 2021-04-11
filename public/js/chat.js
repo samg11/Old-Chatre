@@ -28,7 +28,6 @@ auth.onAuthStateChanged(async (user) => {
                 'authorization': 'Bearer ' + authToken
             }
         }).then(res => res.json());
-        console.log(members)
         
         Object.keys(members).forEach((m) => {
             const member = members[m];
@@ -91,7 +90,7 @@ auth.onAuthStateChanged(async (user) => {
                                     .html(
                                         $('<img>')
                                             .addClass('user-icon')
-                                            .attr('src', msg.userIcon)
+                                            .attr('src', member[msg.posted_by][3])
                                     )
                                     .addClass('user-icon-container bd-highlight')
                             )
@@ -102,7 +101,7 @@ auth.onAuthStateChanged(async (user) => {
                                     .html(
                                         $('<span></span>')
                                             .addClass('user-text')
-                                            .text($(document).width() >= 992 ? msg.posted_by : initials(msg.posted_by))
+                                            .text($(document).width() >= 992 ? member[msg.posted_by][1] : initials(member[msg.posted_by][1]))
                                         )
                             )
 
