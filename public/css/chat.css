@@ -76,7 +76,7 @@ main > div{
 
 @media (max-width: 300px) {
 
-  .message > .nameAndIcon > .user {
+  .message > .nameAndIcon > .user.initials {
     display: none;
   }
 
