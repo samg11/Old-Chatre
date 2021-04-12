@@ -98,6 +98,7 @@ auth.onAuthStateChanged(async (user) => {
                                     .append(
                                         $('<img>')
                                             .addClass('user-icon')
+                                            .attr('loading', 'lazy')
                                             .attr('src', member[3])
                                     )
 
