@@ -1,5 +1,10 @@
 const db = firebase.firestore();
 
+const maxDistanceFromBottom = 250;
+
+let scrollBarHeight;
+let distanceFromBottom;
+
 $('#chat-bar').on('submit', async (e) => {
     e.preventDefault();
     const authToken = await auth.currentUser.getIdToken(true);
@@ -68,7 +73,8 @@ auth.onAuthStateChanged(async (user) => {
 
         db.collection("groups").doc(groupName).collection('messages').orderBy('date_created', 'desc').limit(20)
         .onSnapshot(async (col) => {
-            $('#messages').html('');
+            const upArrowDiv = $("<div id='scrollToBottom'><img src='/public/img/svg/up-arrow.svg'></div>").hide();
+            $('#messages').html(upArrowDiv);
             col.forEach(doc => {
                 const msg = doc.data();
                 const member = members[msg.posted_by];
@@ -110,10 +116,6 @@ auth.onAuthStateChanged(async (user) => {
                                     )
                             )
 
-                            
-
-                            
-
                             .append(
                                 $("<div></div>")
                                     .addClass('text p-2 bd-highlight flex-grow-1 text-break')
@@ -129,6 +131,7 @@ auth.onAuthStateChanged(async (user) => {
                     )
             });
             $('#messages').scrollTop($('#messages')[0].scrollHeight);
+            window.scrollBarHeight = (document.querySelector("#messages").scrollHeight) - ($("#messages").height() + $("#messages").scrollTop());
         });
     }
 })
@@ -164,3 +167,16 @@ if (rank === 'admin') {
     });
 }
 
+$("#messages").scroll(() => {
+    const a = document.querySelector("#messages").scrollHeight;
+    const b = $("#messages").height() * 2;
+    const c = $("#messages").height() - $("#messages").scrollTop();
+    const d = window.scrollBarHeight;
+    window.distanceFromBottom = a - b + c - d;
+    if (window.distanceFromBottom > maxDistanceFromBottom) {
+        $("#scrollToBottom").fadeIn();
+        $("#scrollToBottom").on('click', () => $('#messages').scrollTop($('#messages')[0].scrollHeight))
+    } else {
+        $("#scrollToBottom").fadeOut();
+    }
+});
