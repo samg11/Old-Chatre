@@ -35,8 +35,6 @@ auth.onAuthStateChanged(async (user) => {
         }).then(res => res.json());
         
         Object.keys(members).forEach((m) => {
-            // console.log(members)
-            // console.log(members[m])
             const member = members[m];
             const memberElement = $(`
                 <li data-toggle="tooltip" class="list-group-item" data-placement="bottom" title="${member[0]}"></li>
@@ -75,6 +73,7 @@ auth.onAuthStateChanged(async (user) => {
         .onSnapshot(async (col) => {
             const upArrowDiv = $("<div id='scrollToBottom'><img src='/public/img/svg/up-arrow.svg'></div>").hide();
             $('#messages').html(upArrowDiv);
+            totalNumberOfOriginalMessages = col.docs.length;
             col.forEach(doc => {
                 const msg = doc.data();
                 const member = members[msg.posted_by];
@@ -130,11 +129,18 @@ auth.onAuthStateChanged(async (user) => {
                             
                     )
             });
-            $('#messages').scrollTop($('#messages')[0].scrollHeight);
-            window.scrollBarHeight = (document.querySelector("#messages").scrollHeight) - ($("#messages").height() + $("#messages").scrollTop());
+
+
+            if (window.distanceFromBottom < maxDistanceFromBottom || !window.originalMessagesRendered) {
+                
+                $('#messages').scrollTop($('#messages')[0].scrollHeight);
+                window.scrollBarHeight = document.querySelector("#messages").scrollHeight - ($("#messages").height() + $("#messages").scrollTop());
+            }
+            
         });
+        setTimeout(() => {window.originalMessagesRendered = true}, 1000)
     }
-})
+});
 
 $("#viewMembersCollapseButton").on('click', () => $("#viewMembersCollapse").collapse('toggle'));
 
@@ -175,7 +181,7 @@ $("#messages").scroll(() => {
     window.distanceFromBottom = a - b + c - d;
     if (window.distanceFromBottom > maxDistanceFromBottom) {
         $("#scrollToBottom").fadeIn();
-        $("#scrollToBottom").on('click', () => $('#messages').scrollTop($('#messages')[0].scrollHeight))
+        $("#scrollToBottom").on('click', () => $('#messages').scrollTop($('#messages')[0].scrollHeight));
     } else {
         $("#scrollToBottom").fadeOut();
     }
