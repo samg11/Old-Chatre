@@ -89,12 +89,12 @@ auth.onAuthStateChanged(async (user) => {
                 $('#messages')
                     .prepend(
                         $("<div></div>")
-                            .addClass('message d-flex bd-highlight mb-3 justify-content-between')
+                            .addClass('message d-flex mb-3 justify-content-between')
                             .addClass(posted_by_whom_class)
                             
                             .append(
                                 $('<div></div>')
-                                    .addClass('nameAndIcon bd-highlight')
+                                    .addClass('nameAndIcon')
                                     .append(
                                         $('<img>')
                                             .addClass('user-icon')
@@ -118,13 +118,13 @@ auth.onAuthStateChanged(async (user) => {
 
                             .append(
                                 $("<div></div>")
-                                    .addClass('text p-2 bd-highlight flex-grow-1 text-break')
+                                    .addClass('text p-2 flex-grow-1 text-break')
                                     .text(msg.text)
                             )
                             
                             .append(
                                 $("<div></div>")
-                                    .addClass('time-since p-2 bd-highlight')
+                                    .addClass('time-since p-2')
                                     .text(moment(new Date(msg.date_created)).fromNow())
                             )
                             
