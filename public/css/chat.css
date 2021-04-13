@@ -80,17 +80,6 @@ main > div{
   width: 100%;
 }
 
-@media (max-width: 300px) {
-
-  .message > .nameAndIcon > .user.initials {
-    display: none;
-  }
-
-  .message > .nameAndIcon > .user-icon {
-    margin: auto;
-  }
-}
-
 .message > .time-since {
   min-width: 180px;
 }
@@ -119,12 +108,23 @@ main > div{
   }
 }
 
+@media (max-width: 300px) {
+
+  .message > .nameAndIcon > .user.initials {
+    display: none;
+  }
+
+  .message > .nameAndIcon > .user-icon {
+    margin: auto;
+  }
+}
+
 @media (max-width: 200px) {
   .message > .nameAndIcon > .user-icon {
     display: none;
   }
 
-  .message > .nameAndIcon > .user {
+  .message > .nameAndIcon > .user.initials {
     display: block;
   }
 }
