@@ -25,8 +25,15 @@ main > div{
 }
 
 .message > * {
-  background-color: rgba(196, 215, 245, 0.3);
   border: 1px solid black;
+}
+
+.message.me > * {
+  background-color: rgba(166, 101, 147, 0.3);
+}
+
+.message.them > * {
+  background-color: rgba(196, 215, 245, 0.3);
 }
 
 .message > .text {
@@ -36,7 +43,6 @@ main > div{
 
 .message > .nameAndIcon {
   display: flex;
-  /* flex-direction: column; */
   text-align: center;
   align-items: center;
   justify-content: center;
