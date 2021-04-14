@@ -1,5 +1,6 @@
 :root {
   --chat-bar-height: 2.5rem;
+  --message-background-alpha: 0.6;
 }
 
 body {
@@ -28,12 +29,12 @@ main > div{
   border: 1px solid black;
 }
 
-.message.me > * {
-  background-color: rgba(166, 101, 147, 0.3);
+.message.me {
+  background-color: rgba(132, 179, 196, var(--message-background-alpha));
 }
 
-.message.them > * {
-  background-color: rgba(196, 215, 245, 0.3);
+.message.them {
+  background-color: rgba(255, 190, 153, var(--message-background-alpha));
 }
 
 .message > .text {
