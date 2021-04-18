@@ -6,10 +6,6 @@ section#content {
     justify-content: center;
 }
 
-section#content > * {
-    margin: 50px;
-}
-
 article#header-description {
     text-align: center;
     padding: 15px;
@@ -24,27 +20,38 @@ article#header-description > *{
     margin: 30px 0;
 }
 
-#images {
+article#images {
     display: flex;
     justify-content: space-evenly;
 }
 
-#images > figure {
-    text-align:center;
-    
-    /* margin: 0 5%; */
+article#images > figure {
+    text-align: center;
     width: 30%;
 }
 
-#images > figure > img {
+article#images > figure > img {
     width: 80%;
 }
+#logo {
+    max-width: 70%;
+    margin: 15px auto;
+}
+
+.indexButtonSection {
+    margin-bottom: 15px;
+}
+
 #groupsNloginBTNs {
-    width: 60%;
+    width: 100%;
+}
+
+#pageButtons {
+    width: 50%;
 }
 
 @media (max-width: 700px) {
-    .bottomBTNs {
+    .indexButtonSection, #indexBottomSignInBtn {
         width: 80%;
     }
 }

@@ -12,7 +12,7 @@
     <%- include('../partials/nav'); -%>
     <section id="content">
         <article id="header-description">
-            <h1><b>CHATRE<br></h1>
+            <h1><b>CHATRE</b></h1>
             <h3>The best open source chat app</h3>
             <p>Chatre is better because it just works. With a simple and a minimalistic ui, you can easily chat with friends.</p>
         </article>
@@ -26,12 +26,16 @@
                 <figcaption>Easy Collaboration</figcaption>
             </figure>
         </article>
+
+        <img id="logo" src="/public/logo/big.svg" alt="Chatre Logo">
+
         <article hidden id="authButtons" class="indexButtonSection whenSignedOut">
             <img
                 src="/public/img/google_signin_buttons/2x/btn_google_signin_light_normal_web@2x.png"
                 alt="Sign In With Google"
                 class="bottomBTNs signInBtn"
                 style="cursor: pointer"
+                id="indexBottomSignInBtn"
             />
         </article>
         <article hidden id="pageButtons" class="indexButtonSection whenSignedIn">
