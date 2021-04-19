@@ -78,9 +78,21 @@ auth.onAuthStateChanged(async (user) => {
                 const msg = doc.data();
                 const member = members[msg.posted_by];
 
-                // class (html) for whether the message was by the current user
+                /**
+                    * HTML class for whether the message was sent by the current user 
+                    * @type {string}
+                    * @purpose styling
+                */
                 const posted_by_whom_class = msg.posted_by === auth.currentUser.uid ? 'me' : 'them';
 
+                /**
+                 * Person's Name -> Initials
+                 * @param {string} name - The name of the person
+                 * @returns {string} The initials for the person
+                 * @example 
+                 * initials("Sam Girshovich") // "SG"
+                 * initials("Harry Mack") // "HM"
+                 */
                 const initials = (name) => (
                     name.split(' ').map(n => n.charAt(0)).join('')
                 )                    
@@ -152,8 +164,6 @@ if (rank === 'admin') {
     $('#addMemberForm').on('submit', async (e) => {
         e.preventDefault();
         const authToken = await auth.currentUser.getIdToken(true);
-        console.log($('#userEmail').val());
-
         const res = await fetch(`/chat/${groupName}/add-member`, {
             method: 'POST',
             headers: {

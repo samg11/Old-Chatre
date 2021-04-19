@@ -40,7 +40,11 @@ chat.post('/:name/getMembers', async (req, res) => {
 
       const admin = await auth.getUser(groupData.admin);
 
-      const userDataToSend = (u: any) => [
+      /**
+       * Function which returns properties of users which will be sent to the client
+       * @param u - The user object
+       * */
+      const userDataToSend = (u: any): string[] => [
         u.email,
         u.displayName,
         u.uid,
