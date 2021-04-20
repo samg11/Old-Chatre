@@ -1,6 +1,7 @@
 function renderGroups(groups) {
     Promise.resolve().then(() => {
-        $("#admin-group-list > p").attr('hidden', 'true');
+        // $("#admin-group-list").attr('hidden', 'true');
+        $("#admin-group-list").html('');
         groups.adminGroups.forEach((group) => {
             $('#admin-group-list').append(`
                 <a href="/chat/${group}/a" class="list-group-item list-group-item-action">
@@ -11,7 +12,7 @@ function renderGroups(groups) {
     )});
 
     Promise.resolve().then(() => {
-        $("#member-group-list > p").attr('hidden', 'true');
+        $("#member-group-list").html('');
         groups.memberGroups.forEach((group) => {
             $('#member-group-list').append(`
                 <a href="/chat/${group}/m" class="list-group-item list-group-item-action">
