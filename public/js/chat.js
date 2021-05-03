@@ -95,9 +95,8 @@ auth.onAuthStateChanged(async (user) => {
                  */
                 const initials = (name) => (
                     name.split(' ').map(n => n.charAt(0)).join('')
-                )                    
-                    
-
+                )
+                
                 $('#messages')
                     .prepend(
                         $("<div></div>")
