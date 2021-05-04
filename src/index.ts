@@ -3,6 +3,7 @@ import morgan from "morgan";
 
 import groups from "./groups";
 import chat from "./chat";
+import secureChat from './secure-chat';
 
 const PORT = process.env.PORT || 8080;
 
@@ -20,6 +21,7 @@ app.use('/public', express.static('public'));
 // EXPRESS MIDDLEWARE
 app.use('/groups', groups);
 app.use('/chat', chat);
+app.use('/secure-chat', secureChat);
 
 // set ejs as template engine
 app.set('view engine', 'ejs');
