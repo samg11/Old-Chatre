@@ -8,6 +8,9 @@ const PORT = process.env.PORT || 8080;
 
 const app = express();
 
+// COMPRESSION
+app.use(require('compression')())
+
 // BODY PARSER
 app.use(express.json())
 
