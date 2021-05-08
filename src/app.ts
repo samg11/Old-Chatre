@@ -33,4 +33,4 @@ app.get("/", (req, res) => {
 // test route
 app.get('/test', (req, res) => {
   res.status(200).send('api is working!');
-})
+});
