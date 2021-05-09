@@ -8,7 +8,10 @@ const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
 
 signInBtn.on("click", () => auth.signInWithRedirect(provider));
-signOutBtn.on("click", () => auth.signOut());
+signOutBtn.on("click", () => {
+    auth.signOut();
+    window.location.pathname = '/'; // Return to homepage when signed out
+});
 
 auth.onAuthStateChanged(user => {
     if (user) {
