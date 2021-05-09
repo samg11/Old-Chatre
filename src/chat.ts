@@ -139,8 +139,8 @@ chat.post("/:name/add-member", async (req, res) => {
 
       if (decodedToken.uid === groupData.admin && userRecord) {
         // ADMIN
-
-        if (!(groupData.members.includes(userRecord.uid)) && decodedToken.uid !== groupData.admin) {
+        console.log('group data:\n', groupData, '\ndecoded token:\n', decodedToken)
+        if (!(groupData.members.includes(userRecord.uid)) && userRecord.uid !== groupData.admin) {
 
           const newMembers = groupData.members;
           newMembers.push(userRecord.uid);
