@@ -1,2 +1,2 @@
 #!/bin/bash
-npm run build:production && gcloud app deploy
+npm run build:production && npm test && gcloud app deploy
