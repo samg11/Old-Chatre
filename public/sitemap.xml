@@ -8,11 +8,11 @@
 
 
 <url>
-  <loc>http://chatre.app/</loc>
+  <loc>https://chatre.app/</loc>
   <priority>1.00</priority>
 </url>
 <url>
-  <loc>http://chatre.app/groups</loc>
+  <loc>https://chatre.app/groups</loc>
   <priority>0.60</priority>
 </url>
 
