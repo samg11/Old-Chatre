@@ -71,7 +71,7 @@ auth.onAuthStateChanged(async (user) => {
 
         db.collection("groups").doc(groupName).collection('messages').orderBy('date_created', 'desc').limit(20)
         .onSnapshot(async (col) => {
-            const upArrowDiv = $("<div id='scrollToBottom'><img src='/public/img/svg/up-arrow.svg'></div>").hide();
+            const upArrowDiv = $("<div id='scrollToBottom'><img src='/static/img/svg/up-arrow.svg'></div>").hide();
             $('#messages').html(upArrowDiv);
             totalNumberOfOriginalMessages = col.docs.length;
             col.forEach(doc => {

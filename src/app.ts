@@ -16,7 +16,7 @@ app.use(express.json())
 app.use(morgan(`:method :status :response-time ms :url`));
 
 // static routes
-app.use('/public', express.static('public'));
+app.use('/static', express.static('static'));
 
 // EXPRESS MIDDLEWARE
 app.use('/groups', groups);
